@@ -1,11 +1,11 @@
-// import {DEV_URL, PROD_URL} from '@env';
+import { SERVER_DEV, SERVER_PROD } from '@env';
 
 const devEnvVariables = {
-  SERVER_URL: 'http://192.168.0.11:9000',
+  SERVER_URL: SERVER_DEV,
 };
 
 const prodEnvVariables = {
-  SERVER_URL: 'https://localhost:9000',
+  SERVER_URL: SERVER_PROD,
 };
 
 export default __DEV__ ? devEnvVariables : prodEnvVariables;
