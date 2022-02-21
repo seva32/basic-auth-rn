@@ -5,8 +5,6 @@ import env from '../config/env';
 
 const headers = {};
 
-console.log(env.SERVER_URL);
-
 const instance = axios.create({
   baseURL: env.SERVER_URL,
   headers,
@@ -22,7 +20,6 @@ instance.interceptors.request.use(
         config.headers.Authorization = `Bearer ${token}`;
       }
     } catch (err) {
-      console.log('wtf 1');
       console.error(err);
     }
     return config;
