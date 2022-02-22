@@ -1,21 +1,15 @@
-import {
-  Text,
-  SafeAreaView,
-  Image,
-  View,
-  TouchableOpacity,
-} from 'react-native';
-import { useNavigation } from '@react-navigation/native';
 import React from 'react';
+import { Text, Image, View, TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+
 import Container from '../common/container';
 import Input from '../common/Input';
 import CustomButton from '../common/CustomButton';
 import styles from './styles';
 import { LOGIN } from '../../constants/routeNames';
 
-const Register = ({ form, errors, onChange, onSubmit }) => {
+const Register = ({ form, errors, onChange, onSubmit, apiError, loading }) => {
   const { navigate } = useNavigation();
-
   return (
     <Container>
       <Image
@@ -35,7 +29,7 @@ const Register = ({ form, errors, onChange, onSubmit }) => {
             onChangeText={value => {
               onChange({ name: 'userName', value });
             }}
-            error={errors.userName}
+            error={errors.userName || apiError?.userName?.msg}
           />
           <Input
             label="First Name"
@@ -43,7 +37,7 @@ const Register = ({ form, errors, onChange, onSubmit }) => {
             onChangeText={value => {
               onChange({ name: 'firstName', value });
             }}
-            error={errors.firstName}
+            error={errors.firstName || apiError?.firstName?.msg}
           />
           <Input
             style={{}}
@@ -52,7 +46,7 @@ const Register = ({ form, errors, onChange, onSubmit }) => {
             onChangeText={value => {
               onChange({ name: 'lastName', value });
             }}
-            error={errors.lastName}
+            error={errors.lastName || apiError?.lastName?.msg}
           />
           <Input
             style={{}}
@@ -61,7 +55,7 @@ const Register = ({ form, errors, onChange, onSubmit }) => {
             onChangeText={value => {
               onChange({ name: 'email', value });
             }}
-            error={errors.email}
+            error={errors.email || apiError?.email?.msg}
           />
           <Input
             style={{}}
@@ -73,9 +67,15 @@ const Register = ({ form, errors, onChange, onSubmit }) => {
             onChangeText={value => {
               onChange({ name: 'password', value });
             }}
-            error={errors.password}
+            error={errors.password || apiError?.password?.msg}
           />
-          <CustomButton title="Submit" primary onPress={onSubmit} />
+          <CustomButton
+            loading={loading}
+            title="Submit"
+            primary
+            onPress={onSubmit}
+            disabled={loading}
+          />
           <View style={styles.createSection}>
             <Text style={styles.infoText}>Already have an account?</Text>
             <TouchableOpacity onPress={() => navigate(LOGIN)}>

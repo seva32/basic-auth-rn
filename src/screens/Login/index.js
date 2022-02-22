@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import LoginComponent from '../../components/Login';
 
 function Login(params) {
