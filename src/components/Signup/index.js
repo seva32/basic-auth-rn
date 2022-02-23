@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Text, Image, View, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
@@ -7,9 +7,18 @@ import Input from '../common/Input';
 import CustomButton from '../common/CustomButton';
 import styles from './styles';
 import { LOGIN } from '../../constants/routeNames';
+import Message from '../common/Message/index';
 
 const Register = ({ form, errors, onChange, onSubmit, apiError, loading }) => {
+  const [networkError, setNetworkError] = useState(null);
   const { navigate } = useNavigation();
+
+  useEffect(() => {
+    if (apiError?.error) {
+      setNetworkError(apiError.error);
+    }
+  }, [apiError?.error]);
+
   return (
     <Container>
       <Image
@@ -22,6 +31,14 @@ const Register = ({ form, errors, onChange, onSubmit, apiError, loading }) => {
         <Text style={styles.title}>Welcome</Text>
         <Text style={styles.subtitle}>Create a free account</Text>
         <View style={styles.form}>
+          {networkError && (
+            <Message
+              danger
+              message={networkError}
+              retryFn={() => console.log('wowo')}
+              onDismiss={() => setNetworkError(null)}
+            />
+          )}
           <Input
             style={{}}
             label="User Name"

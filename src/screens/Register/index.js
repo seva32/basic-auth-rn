@@ -20,9 +20,12 @@ function RegisterScreen(params) {
 
   useFocusEffect(
     useCallback(() => {
-      if (data || error) {
-        clearAuthState()(authDispatch);
-      }
+      // clear state loosing focus
+      return () => {
+        if (data || error) {
+          clearAuthState()(authDispatch);
+        }
+      };
     }, [data, authDispatch, error]),
   );
 

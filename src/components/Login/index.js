@@ -12,6 +12,7 @@ import Input from '../common/Input';
 import CustomButton from '../common/CustomButton';
 import styles from './styles';
 import { REGISTER } from '../../constants/routeNames';
+import Message from '../common/Message/index';
 
 const Login = () => {
   const { navigate } = useNavigation();
@@ -27,27 +28,21 @@ const Login = () => {
         <View>
           <Text style={styles.title}>Welcome</Text>
           <Text style={styles.subtitle}>Login into your account</Text>
+          <Message
+            primary
+            message="Invalid credentials"
+            onDismiss={() => console.log('yahoo')}
+          />
           <View style={styles.form}>
+            <Input style={{}} label="Username" placeholder="Enter username" />
             <Input
-              //   value={username}
-              //   onChangeText={onChangeUsername}
-              style={{}}
-              label="Username"
-              placeholder="Enter username"
-              // error={'Required field'}
-            />
-            <Input
-              //   value={password}
-              //   onChangeText={onChangePassword}
               style={{}}
               label="Password"
               icon={<Text>??</Text>}
               iconPosition="right"
               placeholder="Enter password"
               secureTextEntry
-              // error={'Required field'}
             />
-            {/* <CustomButton title="Submit" loading={true} disabled={true} primary /> */}
             <CustomButton title="Submit" primary />
             <View style={styles.createSection}>
               <Text style={styles.infoText}>Need a new account?</Text>
