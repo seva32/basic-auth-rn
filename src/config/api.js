@@ -1,3 +1,4 @@
 export default {
-  CREATE_USER: '/users',
+  CREATE_USER: '/auth/register',
+  LOGIN: '/auth/login',
 };

@@ -3,4 +3,5 @@ export default {
   data: {},
   error: null,
   loading: false,
+  accessToken: null,
 };

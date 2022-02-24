@@ -22,8 +22,8 @@ instance.interceptors.request.use(
     } catch (err) {
       console.error(err);
     }
-    config.headers.Authorization =
-      'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.Apy_uLNC3SZHZrjJtlpvL-KtMm2OQ8D0yPw0b5Rkv2Q';
+    // config.headers.Authorization =
+    //   'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.Apy_uLNC3SZHZrjJtlpvL-KtMm2OQ8D0yPw0b5Rkv2Q';
     return config;
   },
   error => {

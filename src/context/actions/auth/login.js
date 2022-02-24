@@ -1,30 +1,29 @@
 /* eslint-disable no-sequences */
+// 3.34
 import axios from '../../../helpers/axiosInterceptor';
 import api from '../../../config/api';
 import * as types from '../../../constants/actionTypes';
+import { AsyncStorage } from '@react-native-async-storage/async-storage';
 
-export const clearAuthState = () => dispatch => {
-  dispatch({ type: types.CLEAR_AUTH_STATE });
-};
-
-export default ({ email, password, userName, firstName, lastName }) =>
-  dispatch => {
-    dispatch({ type: types.CREATE_USER_LOADING });
+export default ({ password, userName }) => {
+  return dispatch => {
+    dispatch({ type: types.LOGIN_LOADING });
     axios
-      .post(api.CREATE_USER, {
-        email,
+      .post(api.LOGIN, {
         password,
         userName,
-        firstName,
-        lastName,
       })
       .then(res => {
+        console.log(res.data);
+        // AsyncStorage.setItem('token', res.data.access_token);
+        // AsyncStorage.setItem('user', JSON.stringify(res.data.user));
         dispatch({
-          type: types.CREATE_USER_SUCCESS,
+          type: types.LOGIN_SUCCESS,
           payload: res.data,
         });
       })
       .catch(err => {
+        console.error(err.response.data);
         const errors =
           err.response?.data && typeof err.response.data === 'string'
             ? { error: err.response.data }
@@ -41,8 +40,9 @@ export default ({ email, password, userName, firstName, lastName }) =>
               )
             : null;
         dispatch({
-          type: types.CREATE_USER_FAILURE,
-          payload: errors ? errors : { error: 'Error creating user' },
+          type: types.LOGIN_FAILURE,
+          payload: errors ? errors : { error: 'Error logging in' },
         });
       });
   };
+};

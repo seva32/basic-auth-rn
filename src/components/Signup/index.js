@@ -13,11 +13,13 @@ const Register = ({ form, errors, onChange, onSubmit, apiError, loading }) => {
   const [networkError, setNetworkError] = useState(null);
   const { navigate } = useNavigation();
 
-  useEffect(() => {
-    if (apiError?.error) {
-      setNetworkError(apiError.error);
-    }
-  }, [apiError?.error]);
+  console.log(apiError);
+
+  // useEffect(() => {
+  //   if (apiError?.error) {
+  //     setNetworkError(apiError.error);
+  //   }
+  // }, [apiError?.error]);
 
   return (
     <Container>
