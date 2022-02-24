@@ -18,16 +18,23 @@ function RegisterScreen(params) {
   } = useContext(GlobalContext);
   const { navigate } = useNavigation();
 
-  useFocusEffect(
-    useCallback(() => {
-      // clear state loosing focus
-      return () => {
-        if (data || error) {
-          clearAuthState()(authDispatch);
-        }
-      };
-    }, [data, authDispatch, error]),
-  );
+  useEffect(() => {
+    if (data || error) {
+      clearAuthState()(authDispatch);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // useFocusEffect(
+  //   useCallback(() => {
+  //     // clear state loosing focus
+  //     return () => {
+  //       if (data || error) {
+  //         clearAuthState()(authDispatch);
+  //       }
+  //     };
+  //   }, [data, authDispatch, error]),
+  // );
 
   useEffect(() => {
     if (
