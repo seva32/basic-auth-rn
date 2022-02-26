@@ -26,7 +26,9 @@ export default ({ email, password, userName, firstName, lastName }) =>
       })
       .catch(err => {
         const errors =
-          err.response?.data && typeof err.response.data === 'string'
+          err.message && !err.response
+            ? { error: err.message }
+            : err.response?.data && typeof err.response.data === 'string'
             ? { error: err.response.data }
             : err.response?.data?.length
             ? err.response.data.reduce(

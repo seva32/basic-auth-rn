@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, TouchableOpacity, Text } from 'react-native';
 import colors from '../../../assets/theme/colors';
 
@@ -17,6 +17,12 @@ const Message = ({
   ...props
 }) => {
   const [dismissed, setDismissed] = useState(false);
+
+  // useEffect(() => {
+  //   return () => {
+  //     setDismissed(false);
+  //   };
+  // });
 
   const getBgColor = () => {
     if (primary) {
