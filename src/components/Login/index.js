@@ -48,7 +48,10 @@ const Login = ({ form, errors, onChange, onSubmit, apiError, loading }) => {
                   dispatch({ type: types.CLEAR_AUTH_STATE });
                   setNetworkError(null);
                 }}
-                onDismiss={() => setNetworkError(null)}
+                onDismiss={() => {
+                  dispatch({ type: types.CLEAR_AUTH_STATE });
+                  setNetworkError(null);
+                }}
               />
             )}
             <Input

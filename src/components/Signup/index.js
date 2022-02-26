@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Text, Image, View, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
@@ -8,18 +8,19 @@ import CustomButton from '../common/CustomButton';
 import styles from './styles';
 import { LOGIN } from '../../constants/routeNames';
 import Message from '../common/Message/index';
+import * as types from '../../constants/actionTypes';
+import { GlobalContext } from '../../context/Provider';
 
 const Register = ({ form, errors, onChange, onSubmit, apiError, loading }) => {
   const [networkError, setNetworkError] = useState(null);
   const { navigate } = useNavigation();
+  const { authDispatch: dispatch } = useContext(GlobalContext);
 
-  console.log(apiError);
-
-  // useEffect(() => {
-  //   if (apiError?.error) {
-  //     setNetworkError(apiError.error);
-  //   }
-  // }, [apiError?.error]);
+  useEffect(() => {
+    if (apiError?.error) {
+      setNetworkError(apiError.error);
+    }
+  }, [apiError?.error]);
 
   return (
     <Container>
@@ -37,8 +38,14 @@ const Register = ({ form, errors, onChange, onSubmit, apiError, loading }) => {
             <Message
               danger
               message={networkError}
-              retryFn={() => console.log('wowo')}
-              onDismiss={() => setNetworkError(null)}
+              retryFn={() => {
+                dispatch({ type: types.CLEAR_AUTH_STATE });
+                setNetworkError(null);
+              }}
+              onDismiss={() => {
+                dispatch({ type: types.CLEAR_AUTH_STATE });
+                setNetworkError(null);
+              }}
             />
           )}
           <Input

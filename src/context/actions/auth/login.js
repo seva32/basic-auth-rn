@@ -3,7 +3,7 @@
 import axios from '../../../helpers/axiosInterceptor';
 import api from '../../../config/api';
 import * as types from '../../../constants/actionTypes';
-import { AsyncStorage } from '@react-native-async-storage/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default ({ password, userName }) => {
   return dispatch => {
@@ -14,18 +14,20 @@ export default ({ password, userName }) => {
         userName,
       })
       .then(res => {
-        console.log(res.data);
-        // AsyncStorage.setItem('token', res.data.access_token);
-        // AsyncStorage.setItem('user', JSON.stringify(res.data.user));
+        if (res.data.access_token && res.data.user) {
+          AsyncStorage.setItem('token', res.data.access_token);
+          AsyncStorage.setItem('user', JSON.stringify(res.data.user));
+        }
         dispatch({
           type: types.LOGIN_SUCCESS,
           payload: res.data,
         });
       })
       .catch(err => {
-        console.error(err.response.data);
         const errors =
-          err.response?.data && typeof err.response.data === 'string'
+          err.message && !err.response
+            ? { error: err.message }
+            : err.response?.data && typeof err.response.data === 'string'
             ? { error: err.response.data }
             : err.response?.data?.length
             ? err.response.data.reduce(
